@@ -20,7 +20,7 @@ const SortableItem: FC<Props> = ({ id, src, name, isActive, onDelete }) => {
     setNodeRef,
     transform,
     transition,
-    isDragging,
+    isDragging
   } = useSortable({ id });
 
   const style: CSSProperties = {
@@ -29,7 +29,7 @@ const SortableItem: FC<Props> = ({ id, src, name, isActive, onDelete }) => {
     opacity: !isDragging ? 0.5 : 1,
     cursor: "grab",
     zIndex: isDragging || isActive ? 50 : 1,
-    position: isDragging ? ("relative" as const) : ("static" as const),
+    position: isDragging ? "relative" : "static",
     margin: isDragging ? 0 : "1rem",
     boxShadow: !isDragging ? "0 4px 8px rgba(0, 0, 0, 0.2)" : "none",
     backgroundColor: !isDragging ? "rgba(255, 255, 255, 0.8)" : "white",
@@ -40,20 +40,26 @@ const SortableItem: FC<Props> = ({ id, src, name, isActive, onDelete }) => {
     height: "180px",
     display: "flex",
     flexDirection: "column",
-    alignItems: "center",
+    alignItems: "center"
   };
 
+  const getShortName = (name: string, maxLength = 18) => {
+    if (name.length <= maxLength) return name;
+  
+    const dotIndex = name.lastIndexOf(".");
+    const extension = dotIndex !== -1 ? name.substring(dotIndex) : "";
+    const base = name.substring(0, maxLength - extension.length - 3); // -3 for "..."
+    return `${base}...${extension}`;
+  };
+  
   return (
     <div
-      ref={setNodeRef}
       style={style}
       className={clsx(
         "w-[150px] h-[180px] bg-white rounded-md border border-gray-300 shadow-md transition-all duration-150 relative margin-3",
         isActive && "scale-125 shadow-2xl z-50",
         isDragging ? "z-50" : "hover:shadow-lg"
       )}
-      {...attributes}
-      {...listeners}
     >
       <button
         onClick={onDelete}
@@ -62,20 +68,24 @@ const SortableItem: FC<Props> = ({ id, src, name, isActive, onDelete }) => {
         ❌
       </button>
 
-      <div className="w-full h-[100px] p-3 flex items-center justify-center mt-10">
-        <Image
-          src={src}
-          alt={id}
-          width={100}
-          height={100}
-          className="object-contain"
-        />
-      </div>
-      <div
-        className="text-center  text-xs font-medium truncate px-1"
-        style={{ color: isActive ? "#000" : "#555" }}
-      >
-        {name}
+      <div ref={setNodeRef} {...attributes} {...listeners}>
+        <div className="w-full h-[100px] p-3 flex items-center justify-center mt-10">
+          <Image
+            src={src}
+            alt={id}
+            width={100}
+            height={100}
+            className="object-contain"
+          />
+        </div>
+
+        <div
+          title={name}
+          className="text-center text-xs font-medium px-1 truncate w-full inline-block overflow-hidden text-ellipsis break-all"
+          style={{ color: isActive ? "#000" : "#fff",fontWeight: "bold" }}
+        >
+          {getShortName(name)}
+        </div>
       </div>
     </div>
   );
