@@ -1,6 +1,6 @@
 # 🖼️ Sortable Image Grid
 
-A modern, responsive drag-and-drop interface for sorting images using `@dnd-kit`. Built with Next.js 14 and Tailwind CSS 4.
+A modern, responsive drag-and-drop interface for sorting images using `@dnd-kit`. Built with Next.js 15 and Tailwind CSS 4.
 
 ## ✨ Features
 
@@ -13,15 +13,17 @@ A modern, responsive drag-and-drop interface for sorting images using `@dnd-kit`
 
 ## 📦 Tech Stack
 
-- [Next.js 14](https://nextjs.org/)
+- [Next.js 15](https://nextjs.org/)
 - [Tailwind CSS 4](https://tailwindcss.com/)
 - [@dnd-kit](https://github.com/clauderic/dnd-kit) for sortable interaction
 
 ## 🚀 Getting Started
 
 ```bash
-git clone https://github.com/your-username/your-repo-name
-cd your-repo-name
+git clone https://github.com/rcptok25/frontend-ui-sortable-grid
+cd frontend-ui-sortable-grid
 yarn
 yarn dev
 ```
+
+## Demo
